@@ -10,8 +10,9 @@ dotenv.config(); // to use environmental variables from .env file using process.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const basePath =  __dirname.split( '\\' ).slice( 0, -1 ).join( '\\' )
-
+// const basePath =  __dirname.split( '\\' ).slice( 0, -1 ).join( '\\' )  // local(window)
+const basePath =  __dirname.split( '/' ).slice( 0, -1 ).join( '/' )
+console.log("Root directory -- "+basePath)
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.route('/').post(async(req, res)=>{
     try{
         const {prompt} = req.body;   
 
-        console.log("prompt "+ prompt);
+        console.log("prompt -- "+ prompt);
         
         const response = await fetch(
             "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
@@ -42,9 +43,10 @@ router.route('/').post(async(req, res)=>{
 
         const randomName = Math.random() * (100000 - 1) + 1;
         
-        const filePath = `${basePath}\\uploads\\img${randomName}.jpeg`;
+        // const filePath = `${basePath}\\uploads\\img${randomName}.jpeg`;
+        const filePath = `${basePath}/uploads/img${randomName}.jpeg`;
         
-        console.log("path " + filePath)
+        console.log("path -- " + filePath)
 
         fs.writeFileSync(filePath, buffer);
 
