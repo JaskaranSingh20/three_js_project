@@ -18,7 +18,7 @@ const Home = () => {
   return (
    <AnimatePresence>
     {snap.intro && (
-        <motion.section className="home ml-14" {...slideAnimation('left')}>
+        <motion.section className="home md:ml-14 ml-8" {...slideAnimation('left')}>
             <motion.header {...slideAnimation('down')}>
                 <img
                     src = "./threejs.png"

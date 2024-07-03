@@ -8,15 +8,7 @@ import { Decal, useTexture , useGLTF} from '@react-three/drei';
 
 const Shirt = () => {
     const snap = useSnapshot(state);
-    const {nodes, materials} = useGLTF('/shirt_baked.glb');
-
-// unused_blue_vans_shoe.glb
-    // const {nodes, materials} = useGLTF('/unused_blue_vans_shoe.glb');
-    // console.log(gltf);
-
-// nodes.Object_2.
-
-// materials.Blue_Vans_Shoe
+    const {nodes, materials} = useGLTF('/shirt_baked2.glb');
 
     const logoTexture = useTexture(snap.logoDecal);
     const fullTexture = useTexture(snap.fullDecal);
@@ -36,9 +28,6 @@ const Shirt = () => {
            geometry = {nodes.T_Shirt_male.geometry}
            material= {materials.lambert1}
 
-          //  geometry = {nodes.Object_2.geometry}
-          //  material= {materials.Blue_Vans_Shoe}
-          //  rotation={[-Math.PI / 2, 0 , -Math.PI / 2]}
            material-roughness = {1}
            dispose={null}
            >

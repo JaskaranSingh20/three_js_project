@@ -20,6 +20,11 @@ router.route('/').post(async(req, res)=>{
     try{
         const {prompt} = req.body;   // message 
 
+        // console.log(req.body);
+        // var newprompt = JSON.stringify({prompt});
+        // console.log("Api endpoint hit");
+        // console.log(newprompt);
+
         const response = await openai.createImage({
             prompt,
             n: 1,
@@ -27,7 +32,10 @@ router.route('/').post(async(req, res)=>{
             response_format: "b64_json"
         })
 
+        //we will make a call using axios to stable diffusion api
+
         const image = response.data.data[0].b64_json;
+        console.log(image);
 
         res.status(200).json({photo: image});
         

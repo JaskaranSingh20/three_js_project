@@ -1,4 +1,4 @@
-export const transition = { type: "spring", duration: 0.8 };
+export const transition = { type: "spring", ease: "easeOut", duration: 0.8 };
 
 export const slideAnimation = (direction) => {
   return {
@@ -45,7 +45,7 @@ export const headTextAnimation = {
     damping: 5,
     stiffness: 40,
     restDelta: 0.001,
-    duration: 0.3,
+    duration: 1,
   },
 };
 

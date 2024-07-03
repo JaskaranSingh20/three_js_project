@@ -8,7 +8,7 @@ import {download} from '../assets';
 import {downloadCanvasToImage, reader} from '../config/helpers';
 import {EditorTabs, FilterTabs, DecalTypes} from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
-
+import axios from "axios";
 import {AIPicker, ColorPicker, CustomButton, FilePicker , Tab} from '../components'
 
 
@@ -110,21 +110,27 @@ const Customizer = () => {
       // call our backend to generate an AI image
       setGeneratingImg(true);
 
-      const response = await fetch('http://localhost:8080/api/v1/dalle', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({
-          prompt,
-        })
-      })
+      //    route ->  /api/v1/dalle
 
-      const data = await response.json();
-      handleDecals(type, `data:image/png;base64,${data.photo}`)
+      const image = await axios.post("http://localhost:8080/api/v1/openjourney/",
+        JSON.stringify({
+              prompt,
+            }) ,
+             { responseType: "blob", headers: {'Content-Type': 'application/json' }}); 
+      
+      const reader = new FileReader();
+      reader.readAsDataURL(image.data);
+
+      let base64URL;
+      reader.onloadend = function() {
+        base64URL = reader.result; // data url
+        // console.log("baseurl "+ base64URL);
+        handleDecals(type, base64URL)
+      };
 
     }catch(error){
-      alert(error);
+      // alert(error);
+      console.log(error);
     }finally{
       setGeneratingImg(false);
       setActiveEditorTab("");
